@@ -1,0 +1,10 @@
+*~
+build*/
+.DS_Store
+*.pdf
+*.mat
+data/
+html/
+tmp/
+matlab-workspace
+octave-workspace
