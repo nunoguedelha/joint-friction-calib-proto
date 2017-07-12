@@ -5,22 +5,35 @@ classdef SensorsData < handle
     % - number of samples
     % - data capture file path
     
+    properties (Constant=true, Access=protected)
+        dfltFilter = struct(...
+            'funcH',@sgolayfilt,...
+            'type','sgolay',...
+            'params',struct('sgolayK',5,'sgolayF',201));
+        numDeriv = @(x,time) SensorsData.firstOrderDeriv(x,time);
+    end
+    
     properties (Access=public)
         path         ;
         nSamples  = 0; %number of samples
         tInit     = 0;    %seconds to be skipped at the start
         tEnd      = 0;    %seconds to reach the end of the movement
-        filtParams;
+        q_filter  = SensorsData.dfltFilter;
+        tau_filter= SensorsData.dfltFilter;
+        time         ;
+        raw          ;
+        filtered     ;
     end
     
     methods
-        function obj = SensorsData(dataPath, nSamples, tInit, tEnd, filtParams)
-            if isempty(filtParams)
-                filtParams.type = 'sgolay';
-                filtParams.sgolayK = 5;
-                filtParams.sgolayF = 601;
+        function obj = SensorsData(dataPath, nSamples, tInit, tEnd, q_filter, tau_filter)
+            if ~isempty(q_filter)
+                obj.q_filter = q_filter;
             end
-            obj.filtParams = filtParams;
+            if ~isempty(tau_filter)
+                obj.tau_filter = tau_filter;
+            end
+            
             % main input parameters
             obj.path = dataPath;
             obj.nSamples = nSamples;
@@ -29,6 +42,10 @@ classdef SensorsData < handle
         end
         
         loadData(obj);
+    end
+    
+    methods (Static=true, Access=public)
+        dx = firstOrderDeriv(x,time);
     end
     
     methods (Static=true, Access=protected)
