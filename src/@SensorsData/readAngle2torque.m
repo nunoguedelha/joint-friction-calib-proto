@@ -1,7 +1,6 @@
 function [q,tau,offset,time] = readAngle2torque(filename)
 
 % header and data formats
-headerFormat = '%*s';
 dataFormat = '%f;RI,%f,%f,%f;%s';
 
 % file descriptor

@@ -22,9 +22,9 @@ plot(xModel,yModel,'r','lineWidth',4.0);
 
 hold off
 grid ON;
-xlabel('Time (sec)','Fontsize',12);
+xlabel(xLabel,'Fontsize',12);
 ylabel(yLabel,'Fontsize',12);
-legend('Location','BestOutside',y1Legend,y2Legend);
+legend('Location','BestOutside',dataLegend,modelLegend);
 set(gca,'FontSize',12);
 
 end
