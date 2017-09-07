@@ -1,4 +1,4 @@
-function [ theta ] = normalEquation( x,y )
+function [ thetaPosVel,thetaNegVel ] = normalEquation( x,y )
 %NORMALEQUATION Computes the closed-form solution to linear regression 
 %   using the normal equations.
 
@@ -10,6 +10,14 @@ end
 % format X adding the column of ones
 X = [ones(size(x,1),1) x];
 
-theta = pinv(X'*X)*X'*y;
+% process positive velocities model
+Xpos = X(X(:,2)>=0,:);
+ypos = y(X(:,2)>=0);
+thetaPosVel = pinv(Xpos'*Xpos)*Xpos'*ypos;
+
+% process negative velocities model
+Xneg = X(X(:,2)<0,:);
+yneg = y(X(:,2)<0);
+thetaNegVel = pinv(Xneg'*Xneg)*Xneg'*yneg;
 
 end

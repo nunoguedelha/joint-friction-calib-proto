@@ -6,10 +6,9 @@ classdef Regressors < handle
     end
     
     methods (Static=true)
-        [theta] = normalEquation(x,y);
+        [thetaPosVel,thetaNegVel] = normalEquation(x,y);
         
-        [xs,ys] = resampleData(theta,x,nSamples);
+        [xs,ys] = resampleData(thetaPosVel,thetaNegVel,x,nSamples);
     end
     
 end
-

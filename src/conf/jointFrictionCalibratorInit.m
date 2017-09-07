@@ -4,7 +4,7 @@
 
 % input parameters
 dataPath = '../../data/dumper/';
-filename = '';
+filename = 'FrictionTest_20170707/Torque_Angler170707.csv';
 
 % Start and end point of data samples
 timeStart = 1;  % starting time in capture data file (in seconds)
